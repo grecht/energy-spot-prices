@@ -1,5 +1,5 @@
 *.pdf
-!/doc/fig
+!/doc/fig/*
 
 ##### Python gitignore #####
 # Byte-compiled / optimized / DLL files
