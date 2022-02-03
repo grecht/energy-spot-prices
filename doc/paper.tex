@@ -27,6 +27,11 @@
 \usepackage{microtype}      % microtypography
 \usepackage{xcolor}         % colors
 
+% proper quoting
+\usepackage{csquotes} 
+
+\usepackage{graphicx}
+
 \title{The Effect of Renewable Generation on Electricity Spot Market Prices in Germany}
 
 % The \author macro works with any number of authors. There are two commands
@@ -39,10 +44,10 @@
 
 \author{%
 Ismail Kisa\\
-Matrikelnummer 4163309\\
+% Matrikelnummer \\
 \texttt{ismail.kisa@student.uni-tuebingen.de}\\
 \And Gereon Recht\\
-Matrikelnummer 5925276\\
+% Matrikelnummer \\
 \texttt{gereon.recht@student.uni-tuebingen.de} \\
   %David S.~Hippocampus\thanks{Use footnote for providing further information
    % about author (webpage, alternative address)---\emph{not} for acknowledging
@@ -96,7 +101,12 @@ Matrikelnummer 5925276\\
 \section{Data}
 We use hourly time series data published by SMARD (Strommarktdaten) from the federal network agency of germany for our analysis. We analyze hourly data in the period from 2019 to 2021 for electricity generation and the corresponding intraday spot market prices. Originally, the intraday spot market prices are available in 15-minutes intervals. But for our analysis we resampled the spot market prices to hourly intervals using the mean of the respective time slots, to match to the hourly interval of the electricity generation data. SMARD provides the amount of generated electricity that is actually fed into the power grid. The data is clustered into different bidding zones in europe. Since we focuse only on Germany, we use the bidding zone Germany/Luxembourg, which is available from 01.10.2018. Before, Germany was cumulated with Austria and Luxembourg. In a bidding zone, the spot market price is the same everywhere.
 
-\[Bar Plot\]
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{doc/fig/quarterly_technology_mix.pdf}
+    \caption{Caption}
+    \label{fig:quarterly_mix}
+\end{figure}
 
 Electricity generation can be divided into two categories: conventional and renewable. Conventional power generation refers to those power plants that require finite, fossil energy resources. These include gas, coal or oil but also nuclear power plants. On the otherside, renwable power generation uses energy sources that are continously renewed and are available unlimited. Examples are hydropower, photovoltaic, wind or biomass. Our data contains, besides the mentioned power plants, "other renewables" and "other conventionals". "Other renewables" include for example geothermal energy or landfill gas. "Other conventionals" incude trash or mineral oil. Those power plants have a small electricity generation and are merged. The most significant energies are wind and solar for renewable, and brown coal and nuclear for conventional. 
 
@@ -112,6 +122,20 @@ The spot market price for electricity is traded on the exchange and is determine
 \section{Methods}
 
 \section{Results}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{doc/fig/ren_vs_con_regression.pdf}
+    \caption{Caption}
+    \label{fig:ren_vs_con_regression}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\columnwidth]{doc/fig/solar_wind_regression.pdf}
+    \caption{Caption}
+    \label{fig:solar_wind_regression}
+\end{figure}
 
 \section{Conclusion}
 
