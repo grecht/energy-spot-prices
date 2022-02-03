@@ -32,6 +32,8 @@
 
 \usepackage{graphicx}
 
+
+
 \title{The Effect of Renewable Generation on Electricity Spot Market Prices in Germany}
 
 % The \author macro works with any number of authors. There are two commands
@@ -98,34 +100,50 @@ Ismail Kisa\\
 
 \section{Introduction}
 
-\section{Data}
-We use hourly time series data published by SMARD (Strommarktdaten) from the federal network agency of germany for our analysis. We analyze hourly data in the period from 2019 to 2021 for electricity generation and the corresponding intraday spot market prices. Originally, the intraday spot market prices are available in 15-minutes intervals. But for our analysis we resampled the spot market prices to hourly intervals using the mean of the respective time slots, to match to the hourly interval of the electricity generation data. SMARD provides the amount of generated electricity that is actually fed into the power grid. The data is clustered into different bidding zones in europe. Since we focuse only on Germany, we use the bidding zone Germany/Luxembourg, which is available from 01.10.2018. Before, Germany was cumulated with Austria and Luxembourg. In a bidding zone, the spot market price is the same everywhere.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\columnwidth]{doc/fig/quarterly_technology_mix.pdf}
-    \caption{Caption}
-    \label{fig:quarterly_mix}
-\end{figure}
+\begin{itemize}
+    \item explain how pricing in electricity markets works (merit order)
+    \item explain why negative prices can occur
+    \item some basics about how electricity is measured (MWh)
+\end{itemize}
 
 Electricity generation can be divided into two categories: conventional and renewable. Conventional power generation refers to those power plants that require finite, fossil energy resources. These include gas, coal or oil but also nuclear power plants. On the otherside, renwable power generation uses energy sources that are continously renewed and are available unlimited. Examples are hydropower, photovoltaic, wind or biomass. Our data contains, besides the mentioned power plants, "other renewables" and "other conventionals". "Other renewables" include for example geothermal energy or landfill gas. "Other conventionals" incude trash or mineral oil. Those power plants have a small electricity generation and are merged. The most significant energies are wind and solar for renewable, and brown coal and nuclear for conventional. 
 
 The spot market price for electricity is traded on the exchange and is determined by supply and demand. In some hours the price of electricity on the spot market is negative. This happens if high electricity generation meets low demand. In times of negative prices, the electricity generators have to pay for the acceptans of their generated electricity. 
 
+\section{Data}
+We use time series data from the years 2019 to 2021 of hourly electricity generation separated by technology type and quarter-hourly intraday spot market prices, both for the bidding zone comprised of Germany and Luxembourg \citep{smard}.
+Bidding zones are areas which have the same electricity price.
+We transform the spot market prices to hourly intervals by taking the mean value for each hour in order to relate them to the electricity generation data.
+
+TODO: how is the data gathered? By TSOs?
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\columnwidth]{doc/fig/quarterly_technology_mix.pdf}
+    \caption{Caption}
+    \label{fig:quarterly_mix}
+\end{figure}
+
 \begin{itemize}
-    \item Mention that pumped storage hydro is left out and analyzed seperately?
+    \item Mention that pumped storage hydro is left out and analyzed seperately
     \item Mention that the price has increased a lot since 2019, while the percentage of renewable is same?
     \\
     \item Informations from \textit{https://www.smard.de/page/home/wiki-article/446/636, https://www.smard.de/page/home/wiki-article/518/562}
+    \item Introduce data by showing exemplary day, maybe one where renewables depress prices
 \end{itemize}
 
 \section{Methods}
 
 \section{Results}
 
+\begin{itemize}
+    \item Figure \ref{fig:ren_vs_con_regression} shows the opposite effects of renewable and conventional electricity generation on the prices.
+    
+\end{itemize}
+
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{doc/fig/ren_vs_con_regression.pdf}
+    \includegraphics[width=0.7\columnwidth]{doc/fig/ren_vs_con_regression.pdf}
     \caption{Caption}
     \label{fig:ren_vs_con_regression}
 \end{figure}
@@ -137,7 +155,15 @@ The spot market price for electricity is traded on the exchange and is determine
     \label{fig:solar_wind_regression}
 \end{figure}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\columnwidth]{doc/fig/pumped_hydro_regression.pdf}
+    \caption{Caption}
+    \label{fig:pumped_hydro_regression}
+\end{figure}
+
 \section{Conclusion}
 
-
+\bibliographystyle{plainnat}
+\bibliography{literature}
 \end{document}
