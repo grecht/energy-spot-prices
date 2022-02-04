@@ -101,15 +101,25 @@ Ismail Kisa\\
 \section{Introduction}
 
 \begin{itemize}
-    \item explain how pricing in electricity markets works (merit order) and what spot markets are. 
-    Use \citep{markets_for_electrical_energy}
     \item explain why negative prices can occur
-    \item some basics about how electricity is measured (MWh)
 \end{itemize}
 
-Electricity generation can be divided into two categories: conventional and renewable. Conventional power generation refers to those power plants that require finite, fossil energy resources. These include gas, coal or oil but also nuclear power plants. On the otherside, renwable power generation uses energy sources that are continously renewed and are available unlimited. Examples are hydropower, photovoltaic, wind or biomass. Our data contains, besides the mentioned power plants, "other renewables" and "other conventionals". "Other renewables" include for example geothermal energy or landfill gas. "Other conventionals" incude trash or mineral oil. Those power plants have a small electricity generation and are merged. The most significant energies are wind and solar for renewable, and brown coal and nuclear for conventional. 
+In today's liberalized electricity markets, electricity is traded in megawatt hours (MWh), where one MWh denotes the generation of one MW over the duration of one hour \citep{markets_for_electrical_energy}.
+Thus, electricity markets have fixed time intervals serving as trading periods.
+Trading within shorter time intervals better reflects the physical conditions of the energy system.
+But this is not desired e.g.\ by agents who run base load generators, which constantly produce to meet the minimum demand, as they rather want a fixed price and quantity over a larger time interval in order to reduce their risks.
+Hence, there are different electricity markets which trade over different time intervals.
+On forward markets, electricity is traded well before its consumption in larger amounts.
+Spot markets trade in the shortest time intervals, e.g.\ quarter-hourly, and are important for balancing demand and generation, which have to be equal at all times to ensure the stability of the system.
+Prices on spot markets are based on the bids and offers of the agents and are set by the market operator, who manages the market.
+To meet the demand, the market operator prioritizes cheaper generators.
+This leads to the \enquote{merit order}, an ordering of generators by their marginal costs, i.e.\ the cost of supplying one additional marginal unit of power.
+The most expensive generator needed to meet the demand sets the price.
+As renewable energy sources like wind and photovoltaic (PV) have near-zero marginal costs, they enter at the bottom of the merit-order and thus depress market prices when they generate a substantial amount of electricity.
+This is called the \enquote{merit-order effect}.
+% TODO: find citation for merit-order - somehow not in that book??
 
-The spot market price for electricity is traded on the exchange and is determined by supply and demand. In some hours the price of electricity on the spot market is negative. This happens if high electricity generation meets low demand. In times of negative prices, the electricity generators have to pay for the acceptans of their generated electricity. 
+Electricity generation can be divided into two categories: conventional and renewable. Conventional power generation refers to those power plants that require finite, fossil energy resources. These include gas, coal or oil but also nuclear power plants. On the otherside, renwable power generation uses energy sources that are continously renewed and are available unlimited. Examples are hydropower, photovoltaic, wind or biomass. Our data contains, besides the mentioned power plants, "other renewables" and "other conventionals". "Other renewables" include for example geothermal energy or landfill gas. "Other conventionals" incude trash or mineral oil. Those power plants have a small electricity generation and are merged. The most significant energies are wind and solar for renewable, and brown coal and nuclear for conventional. 
 
 \section{Data}
 We use time series data from the years 2019 to 2021 of hourly electricity generation separated by technology type and quarter-hourly intraday spot market prices, both for the bidding zone comprised of Germany and Luxembourg \citep{smard}.
