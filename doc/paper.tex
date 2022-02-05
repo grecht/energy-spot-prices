@@ -125,9 +125,15 @@ Electricity generation can be divided into two categories: conventional and rene
 We use time series data from the years 2019 to 2021 of hourly electricity generation separated by technology type and quarter-hourly intraday spot market prices, both for the bidding zone comprised of Germany and Luxembourg \citep{smard}.
 Bidding zones are areas which have the same electricity price.
 We transform the spot market prices to hourly intervals by taking the mean value for each hour in order to relate them to the electricity generation data.
+The data represents the net electricity generation fed into the general supply electricity network wihtout the own needs of the power plants.
 
-TODO: how is the data gathered? By TSOs?
+SMARD obtains most of the data directly from the transparency platform European Transmission System Operators (ENTSO-O). 
+Each european transmission system operator (TSO) as well as the power market exchange are obliged to report and publish their data for their respective bidding zone, according to the Electricity Trancparency Regulation (Regulation (EU) No. 543/2013), at the ENTSO-O at the latest in one hour.
+Only data verified by the federal network agency is published on SMARD \cite{smard_usermanual}.
 
+Despite Pumped-Storage hydro uses hydropower to generate electricity, it is classified as a conventional source in the user manual of SMARD \cite{smard_usermanual}. Since Pumped-Storage hydro needs a special treatment, we will analyze it seperately.  
+
+TODO: Understand user manual page 38. So far I understood that some values are estimates.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\columnwidth]{doc/fig/quarterly_technology_mix.pdf}
@@ -135,8 +141,8 @@ TODO: how is the data gathered? By TSOs?
     \label{fig:quarterly_mix}
 \end{figure}
 
+
 \begin{itemize}
-    \item Mention that pumped storage hydro is left out and analyzed seperately
     \item Mention that the price has increased a lot since 2019, while the percentage of renewable is same?
     \\
     \item Informations from \textit{https://www.smard.de/page/home/wiki-article/446/636, https://www.smard.de/page/home/wiki-article/518/562}
