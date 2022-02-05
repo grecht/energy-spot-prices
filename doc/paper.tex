@@ -119,7 +119,7 @@ As renewable energy sources like wind and photovoltaic (PV) have near-zero margi
 This is called the \enquote{merit-order effect}.
 % TODO: find citation for merit-order - somehow not in that book??
 
-Electricity generation can be divided into two categories: conventional and renewable. Conventional power generation refers to those power plants that require finite, fossil energy resources. These include gas, coal or oil but also nuclear power plants. On the otherside, renwable power generation uses energy sources that are continously renewed and are available unlimited. Examples are hydropower, photovoltaic, wind or biomass. Our data contains, besides the mentioned power plants, "other renewables" and "other conventionals". "Other renewables" include for example geothermal energy or landfill gas. "Other conventionals" incude trash or mineral oil. Those power plants have a small electricity generation and are merged. The most significant energies are wind and solar for renewable, and brown coal and nuclear for conventional. 
+Electricity generation can be divided into two categories: conventional and renewable. Conventional power generation refers to those power plants that require finite, fossil energy resources. These include gas, coal or oil but also nuclear power plants. On the otherside, renwable power generation uses energy sources that are continously renewed and are available unlimited. Examples are hydropower, photovoltaic, wind or biomass. Our data contains, besides the mentioned power plants, "other renewables" and "other conventionals". "Other renewables" include for example geothermal energy or landfill gas. "Other conventionals" incude trash or mineral oil. Those power plants have a small electricity generation and are merged. 
 
 \section{Data}
 We use time series data from the years 2019 to 2021 of hourly electricity generation separated by technology type and quarter-hourly intraday spot market prices, both for the bidding zone comprised of Germany and Luxembourg \citep{smard}.
@@ -129,25 +129,30 @@ The data represents the net electricity generation fed into the general supply e
 
 SMARD obtains most of the data directly from the transparency platform European Transmission System Operators (ENTSO-O). 
 Each european transmission system operator (TSO) as well as the power market exchange are obliged to report and publish their data for their respective bidding zone, according to the Electricity Trancparency Regulation (Regulation (EU) No. 543/2013), at the ENTSO-O at the latest in one hour.
-Only data verified by the federal network agency is published on SMARD \cite{smard_usermanual}.
+Only data verified by the federal network agency is published on SMARD \citep{smard_usermanual}.
 
-Despite Pumped-Storage hydro uses hydropower to generate electricity, it is classified as a conventional source in the user manual of SMARD \cite{smard_usermanual}. Since Pumped-Storage hydro needs a special treatment, we will analyze it seperately.  
+Despite Pumped-Storage hydro uses hydropower to generate electricity, it is classified as a conventional source by SMARD \citep{smard_usermanual}. Since Pumped-Storage hydro needs a special treatment, we will analyze it seperately.  
 
 TODO: Understand user manual page 38. So far I understood that some values are estimates.
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\columnwidth]{doc/fig/quarterly_technology_mix.pdf}
+    \includegraphics[width=0.8\columnwidth]{doc/fig/quarterly_technology_mix_with_price.pdf}
     \caption{Caption}
     \label{fig:quarterly_mix}
 \end{figure}
 
+Figure \ref{fig:quarterly_mix} shows the relative contribution of the different electricity sources over each quarter from 2019 to 2021. 
+We can see that the most significant energies are wind (onshore wind + offshore wind) and solar for renewable, and brown coal and nuclear for conventional. 
+One can observe that the price per MWh fell drastically till the second quarter of 2020 and reached its minimum with 23.73 €/MWh. 
+This price reductions can be attributed to the Covid-19 pandemic. 
+Due to the Covid-19 pandemic, there where many restrictions and lockdows for companies as well as private persons, wherefore there was a greater uncertainity in electricity demand. 
+Sarting from 2020 Q2, the price is rising independent of the propotion of renewable electricity generation and reached its maximum with 109.88 €/MWh. 
+One reason are the rising gas prices. Since the most expensive generator needed to meet the demand sets the price, with rising gas prices the marginal cost of the gas power plants increases, which influences the electricity price strongly. 
 
-\begin{itemize}
-    \item Mention that the price has increased a lot since 2019, while the percentage of renewable is same?
-    \\
-    \item Informations from \textit{https://www.smard.de/page/home/wiki-article/446/636, https://www.smard.de/page/home/wiki-article/518/562}
-    \item Introduce data by showing exemplary day, maybe one where renewables depress prices
-\end{itemize}
+Looking at the conditions on an individual day, Fig.\textit{ref(example-day))} displays the hourly electricity spot price and the proportion of the renewable energy in total energy during one day. 
+It is clearly visible, that the price decreases when the renewables generate more electricity and vice versa. 
+One can note that the contribution of the renewables increases between hour 8 and hour 17 during the day. 
+This can be attributed to the solar system, as it generates electricity only at daytime and reaches its peek at hour 13, where the sun is at its highest point. 
 
 \section{Methods}
 
@@ -156,6 +161,9 @@ TODO: Understand user manual page 38. So far I understood that some values are e
 \begin{itemize}
     \item Figure \ref{fig:ren_vs_con_regression} shows the opposite effects of renewable and conventional electricity generation on the prices.
     \item Data and analysis can be found on Github \citep{github_repo}.
+    \item Figure \ref{fig:pumped_hydro_regression} shows that generation from pumped-storage hydro has a positive relationship with the market price.
+    This is because operators of storage units do arbitrage in time in order to make a profit, i.e.\ they charge during times of low prices and discharge during times of high prices.
+    Thus, prices are generally higher when they are producing.
 \end{itemize}
 
 \begin{figure}
@@ -167,7 +175,7 @@ TODO: Understand user manual page 38. So far I understood that some values are e
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{doc/fig/solar_wind_regression.pdf}
+    \includegraphics[width=\textwidth]{doc/fig/solar_wind_regression.pdf}
     \caption{Caption}
     \label{fig:solar_wind_regression}
 \end{figure}
