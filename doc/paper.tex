@@ -131,13 +131,12 @@ SMARD obtains most of the data directly from the transparency platform European 
 Each european transmission system operator (TSO) as well as the power market exchange are obliged to report and publish their data for their respective bidding zone, according to the Electricity Trancparency Regulation (Regulation (EU) No. 543/2013), at the ENTSO-O at the latest in one hour.
 Only data verified by the federal network agency is published on SMARD \citep{smard_usermanual}.
 
-Despite Pumped-Storage hydro uses hydropower to generate electricity, it is classified as a conventional source by SMARD \citep{smard_usermanual}. Since Pumped-Storage hydro needs a special treatment, we will analyze it seperately.  
+Despite Pumped-Storage hydro uses hydropower to generate electricity, it is classified as a conventional source by SMARD \citep{smard_usermanual}. Therefore, we will analyse Pumped-Storage hydro seperately.  
 
-TODO: Understand user manual page 38. So far I understood that some values are estimates.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\columnwidth]{doc/fig/quarterly_technology_mix_with_price.pdf}
-    \caption{Caption}
+    \caption{Different electricity sources and the spot price}
     \label{fig:quarterly_mix}
 \end{figure}
 
@@ -149,12 +148,25 @@ Due to the Covid-19 pandemic, there where many restrictions and lockdows for com
 Sarting from 2020 Q2, the price is rising independent of the propotion of renewable electricity generation and reached its maximum with 109.88 €/MWh. 
 One reason are the rising gas prices. Since the most expensive generator needed to meet the demand sets the price, with rising gas prices the marginal cost of the gas power plants increases, which influences the electricity price strongly. 
 
-Looking at the conditions on an individual day, Fig.\textit{ref(example-day))} displays the hourly electricity spot price and the proportion of the renewable energy in total energy during one day. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\columnwidth]{doc/fig/example_day.pdf}
+    \caption{Spot price and percentage of renewables on 01/03/2021}
+    \label{fig:example_day}
+\end{figure}
+
+Looking at the conditions on an individual day, Figure \ref{fig:example_day} displays the hourly electricity spot price and the proportion of the renewable energy in total energy during one day. 
 It is clearly visible, that the price decreases when the renewables generate more electricity and vice versa. 
 One can note that the contribution of the renewables increases between hour 8 and hour 17 during the day. 
 This can be attributed to the solar system, as it generates electricity only at daytime and reaches its peek at hour 13, where the sun is at its highest point. 
 
 \section{Methods}
+
+\begin{itemize}
+    \item In order to determine the impact of renewable electricity generation and conventional electricitiy generation on the spot price, we will estimate a linear regression model repectively, where the price in € per MWh is the dependent variable, and the electricity generation in MWh the independet variable. 
+    \item Regression analysis is a statistical technique for investigating and modeling the relationships between variables. 
+\end{itemize}
+
 
 \section{Results}
 
@@ -173,12 +185,13 @@ This can be attributed to the solar system, as it generates electricity only at 
     \label{fig:ren_vs_con_regression}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{doc/fig/solar_wind_regression.pdf}
-    \caption{Caption}
-    \label{fig:solar_wind_regression}
-\end{figure}
+% Comment out till we decide to use the plot
+%\begin{figure}
+%    \centering
+%    \includegraphics[width=\textwidth]{doc/fig/solar_wind_regression.pdf}
+%    \caption{Caption}
+%    \label{fig:solar_wind_regression}
+%\end{figure}
 
 \begin{figure}
     \centering
