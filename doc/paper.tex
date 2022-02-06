@@ -125,36 +125,58 @@ Electricity generation can be divided into two categories: conventional and rene
 We use time series data from the years 2019 to 2021 of hourly electricity generation separated by technology type and quarter-hourly intraday spot market prices, both for the bidding zone comprised of Germany and Luxembourg \citep{smard}.
 Bidding zones are areas which have the same electricity price.
 We transform the spot market prices to hourly intervals by taking the mean value for each hour in order to relate them to the electricity generation data.
-The data represents the net electricity generation fed into the general supply electricity network wihtout the own needs of the power plants.
+% TODO: what does this mean?
+% The data represents the net electricity generation fed into the general supply electricity network wihtout the own needs of the power plants.
+The data is provided by the German Federal Network Agency who itself obtains it from the European Network of Transmission System Operators for Electricity (ENTSO-E) and the European Power Exchange (EPEX SPOT).
+Transmission system operators (TSOs) and EPEX SPOT are required by law to report and publish this data.
+The Network Agency then verifies and processes the data \citep{smard_usermanual}.
 
-SMARD obtains most of the data directly from the transparency platform European Transmission System Operators (ENTSO-O). 
-Each european transmission system operator (TSO) as well as the power market exchange are obliged to report and publish their data for their respective bidding zone, according to the Electricity Trancparency Regulation (Regulation (EU) No. 543/2013), at the ENTSO-O at the latest in one hour.
-Only data verified by the federal network agency is published on SMARD \citep{smard_usermanual}.
+Despite Pumped-Storage hydro uses hydropower to generate electricity, it is classified as a conventional source by SMARD \citep{smard_usermanual}. Therefore, we will analyse Pumped-Storage hydro seperately.  
 
-Despite Pumped-Storage hydro uses hydropower to generate electricity, it is classified as a conventional source by SMARD \citep{smard_usermanual}. Since Pumped-Storage hydro needs a special treatment, we will analyze it seperately.  
-
-TODO: Understand user manual page 38. So far I understood that some values are estimates.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\columnwidth]{doc/fig/quarterly_technology_mix_with_price.pdf}
-    \caption{Caption}
+    \caption{Different electricity sources and the spot price}
     \label{fig:quarterly_mix}
 \end{figure}
 
-Figure \ref{fig:quarterly_mix} shows the relative contribution of the different electricity sources over each quarter from 2019 to 2021. 
-We can see that the most significant energies are wind (onshore wind + offshore wind) and solar for renewable, and brown coal and nuclear for conventional. 
-One can observe that the price per MWh fell drastically till the second quarter of 2020 and reached its minimum with 23.73 €/MWh. 
-This price reductions can be attributed to the Covid-19 pandemic. 
-Due to the Covid-19 pandemic, there where many restrictions and lockdows for companies as well as private persons, wherefore there was a greater uncertainity in electricity demand. 
-Sarting from 2020 Q2, the price is rising independent of the propotion of renewable electricity generation and reached its maximum with 109.88 €/MWh. 
+Figure \ref{fig:quarterly_mix} shows the relative contribution of the different electricity sources as well as the spot prices over each quarter from 2019 to 2021.
+It is visible that the most important renewable sources are onshore and offshore wind as well as solar, while the largest conventional sources are brown coal and nuclear.
+Moreover, market prices fall until the second quarter of 2020 to a minimum of 23.73 €/MWh, most likely due to the COVID-19 pandemic which reduced the demand and thereby depressed prices \citep{covid_electricity_systems}.
+After the second quarter of 2020, the electricity prices rise significantly to a maximum of 109.88 €/MWh due to a multitude of factors, most notably an economic recovery causing demand shocks \citep{long_covid_energy_prices}.
+
+
+% This price reductions can be attributed to the Covid-19 pandemic. 
+% Due to the Covid-19 pandemic, there where many restrictions and lockdows for companies as well as private persons, wherefore there was a greater uncertainity in electricity demand. 
+% Sarting from 2020 Q2, the price is rising independent of the propotion of renewable electricity generation and reached its maximum with 109.88 €/MWh. 
 One reason are the rising gas prices. Since the most expensive generator needed to meet the demand sets the price, with rising gas prices the marginal cost of the gas power plants increases, which influences the electricity price strongly. 
 
-Looking at the conditions on an individual day, Fig.\textit{ref(example-day))} displays the hourly electricity spot price and the proportion of the renewable energy in total energy during one day. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\columnwidth]{doc/fig/example_day.pdf}
+    \caption{Spot price and percentage of renewables on 01/03/2021}
+    \label{fig:example_day}
+\end{figure}
+
+Looking at the conditions on an individual day, Figure \ref{fig:example_day} displays the hourly electricity spot price and the proportion of the renewable energy in total energy during one day. 
 It is clearly visible, that the price decreases when the renewables generate more electricity and vice versa. 
 One can note that the contribution of the renewables increases between hour 8 and hour 17 during the day. 
 This can be attributed to the solar system, as it generates electricity only at daytime and reaches its peek at hour 13, where the sun is at its highest point. 
 
 \section{Methods}
+
+In order to determine the impact of electricity generation on the spot price, we will use a linear regression estimator. 
+Regression analysis is a statistical technique for investigating and modeling the relationships between variables \citep{montgomery2021introduction}. 
+In our case we have two variables: the price is the dependent variable, and the electricity generation the independet variable. 
+In other words, we want to estimte the spot price from the electricity generation using a linear model.
+Depending on the slope of the regression line, we can then conclude on the  correlation of the two variables. 
+Big slope means a high correlation, wheras a small slope means a low correlation (taking the absolute value of the slope). We will use this technique to analyze the renwable electricity generation, conventional electricity generation and explicitly on the pumped storage hydro generation. 
+Our goal is to make the correlation of those variables visible and show to the merit-order effect. 
+
+% regression line conventional: y = 0.01067163 * x - 28.191637699817782
+%    "              renewable:  y = - 0.00563317 * x + 91.00702286781541
+% Can we conclude that conventional increases the price twice more than
+% renewable decreases it? (|Slope_con| is nearly twice as big as |Slope_ren|)
 
 \section{Results}
 
@@ -166,23 +188,24 @@ This can be attributed to the solar system, as it generates electricity only at 
     Thus, prices are generally higher when they are producing.
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\columnwidth]{doc/fig/ren_vs_con_regression.pdf}
+    \includegraphics[width=\columnwidth]{doc/fig/ren_vs_con_regression.pdf}
     \caption{Caption}
     \label{fig:ren_vs_con_regression}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{doc/fig/solar_wind_regression.pdf}
-    \caption{Caption}
-    \label{fig:solar_wind_regression}
-\end{figure}
+% Comment out till we decide to use the plot
+%\begin{figure}
+%    \centering
+%    \includegraphics[width=\textwidth]{doc/fig/solar_wind_regression.pdf}
+%    \caption{Caption}
+%    \label{fig:solar_wind_regression}
+%\end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\columnwidth]{doc/fig/pumped_hydro_regression.pdf}
+    \includegraphics[width=\columnwidth]{doc/fig/pumped_hydro_regression.pdf}
     \caption{Caption}
     \label{fig:pumped_hydro_regression}
 \end{figure}
