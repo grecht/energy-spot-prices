@@ -121,7 +121,7 @@ As renewable energy sources like wind and photovoltaic (PV) have near-zero margi
 This is called the \enquote{merit-order effect}.
 % TODO: find citation for merit-order - somehow not in that book??
 
-Electricity generation can be divided into two categories: conventional and renewable. Conventional power generation refers to those power plants that require finite, fossil energy resources. These include gas, coal or oil but also nuclear power plants. On the otherside, renwable power generation uses energy sources that are continously renewed and are available unlimited. Examples are hydropower, photovoltaic, wind or biomass. Our data contains, besides the mentioned power plants, "other renewables" and "other conventionals". "Other renewables" include for example geothermal energy or landfill gas. "Other conventionals" incude trash or mineral oil. Those power plants have a small electricity generation and are merged. 
+Electricity generation can be divided into two categories: conventional and renewable. Conventional power generation refers to those power plants that require finite, fossil energy resources. These include gas, coal or oil but also nuclear power plants. On the otherside, renwable power generation uses energy sources that are continously renewed and are available unlimited. Examples are hydropower, photovoltaic, wind or biomass.
 
 \section{Data}
 We use time series data from the years 2019 to 2021 of hourly electricity generation separated by technology type and quarter-hourly intraday spot market prices, both for the bidding zone comprised of Germany and Luxembourg \citep{smard}.
@@ -137,7 +137,7 @@ Despite Pumped-Storage hydro uses hydropower to generate electricity, it is clas
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\columnwidth]{doc/fig/quarterly_technology_mix_with_price.pdf}
+    \includegraphics[width=\columnwidth]{doc/fig/quarterly_technology_mix_with_price.pdf}
     \caption{Different electricity sources and the spot price}
     \label{fig:quarterly_mix}
 \end{figure}
@@ -172,11 +172,9 @@ In order to determine the impact of electricity generation on the spot price, we
 Regression analysis is a statistical technique for investigating and modeling the relationships between variables \citep{montgomery2021introduction}. 
 In our case we have two variables: the price as the dependent variable, and the electricity generation as independet.
 If we let y represent the price and x represent electricity generation, then the equation of a straight line relating these two variables is 
-
 \begin{equation}
     y = \beta_0 + \beta_1\cdot x
 \end{equation}
-
 where $\beta_0$ is the intercept and $\beta_1$ is the slope.
 In other words, we want to estimte the spot prices from the electricity generation using a linear model.
 Depending on the slope of the regression line, we can conclude on the correlation of the two variables. 
@@ -195,7 +193,7 @@ One can observe, that renewable and conventional electricity generation have an 
 Renewable has a negtive correlation whereas conventional has a positive correlation. 
 That means, increasing renewable electricity generation ensures that the price decreases.
 
-Figure \ref{fig:pumped_hydro_regression} shows that generation from pumped-storage hydro has a positive relationship with the market price.
+% Generation from pumped-storage hydro has a positive relationship with the market price.
 This is because operators of storage units do arbitrage in time in order to make a profit, i.e.\ they charge during times of low prices and discharge during times of high prices.
 Thus, prices are generally higher when they are producing.
 The data and analysis can be found on Github \citep{github_repo}.
@@ -218,7 +216,7 @@ The data and analysis can be found on Github \citep{github_repo}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\columnwidth]{doc/fig/ren_vs_con_regression_separate.pdf}
+    \includegraphics[width=0.85\columnwidth]{doc/fig/ren_vs_con_regression_separate.pdf}
     \caption{Caption}
     \label{fig:ren_vs_con_regression}
 \end{figure}
