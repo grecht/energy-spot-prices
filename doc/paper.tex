@@ -86,32 +86,34 @@ Ismail Kisa\\
 \maketitle
 
 \begin{abstract}
-\begin{itemize}
-    \item Increasing renewable generation in Germany $->$ EEG (Erneurbare Energien Gesetz) responsible for that
-    \item This paper analyses the effect of renewabele/conventional generation on the spot market price
-    \item Analyzed interval from 2019 - 2021
-    \item Describe data briefly
-    \item We use regression analysis
-    \item Mention result: negative correlation of renewable generation and price $->$ merit-order
-\end{itemize}
+
+The German Renwable Energy Source Act (EEG) aims to increase the share of renewable energies in the power supply to at least 80 percent by 2050. 
+This paper will analyse the effects of increasing renewable electricity generation on the electricity spot price in Germany and Luxembourg from 2019 to 2021. 
+We will use regeression analysis on the data provided by the German Federal Network Agency, in order to highlight the merit-order effect. 
+Our results showed a positive effect of renewable electricity generation on the spot price.
+
+%\begin{itemize}
+%    \item Increasing renewable generation in Germany $->$ EEG (Erneurbare Energien Gesetz) responsible for that
+%    \item This paper analyses the effect of renewabele/conventional generation on the spot market price
+%    \item Analyzed interval from 2019 - 2021
+%    \item Describe data briefly
+%    \item We use regression analysis
+%    \item Mention result: negative correlation of renewable generation and price $->$ merit-order
+%\end{itemize}
 
 
 \end{abstract}
 
 \section{Introduction}
-
-\begin{itemize}
-    \item explain why negative prices can occur
-\end{itemize}
-
 In today's liberalized electricity markets, electricity is traded in megawatt hours (MWh), where one MWh denotes the generation of one MW over the duration of one hour \citep{markets_for_electrical_energy}.
 Thus, electricity markets have fixed time intervals serving as trading periods.
 Trading within shorter time intervals better reflects the physical conditions of the energy system.
-But this is not desired e.g.\ by agents who run base load generators, which constantly produce to meet the minimum demand, as they rather want a fixed price and quantity over a larger time interval in order to reduce their risks.
+But this is not desired e.g.\ by participants who run base load generators, which constantly produce to meet the minimum demand, as they rather want a fixed price and quantity over a larger time interval in order to reduce their risks.
 Hence, there are different electricity markets which trade over different time intervals.
 On forward markets, electricity is traded well before its consumption in larger amounts.
 Spot markets trade in the shortest time intervals, e.g.\ quarter-hourly, and are important for balancing demand and generation, which have to be equal at all times to ensure the stability of the system.
-Prices on spot markets are based on the bids and offers of the agents and are set by the market operator, who manages the market.
+Prices on spot markets are based on the bids and offers of the participants and are set by the market operator, who manages the market.
+Negative prices can occur when demand is low and there is an abundance of inflexible generation.
 To meet the demand, the market operator prioritizes cheaper generators.
 This leads to the \enquote{merit order}, an ordering of generators by their marginal costs, i.e.\ the cost of supplying one additional marginal unit of power.
 The most expensive generator needed to meet the demand sets the price.
@@ -149,7 +151,8 @@ After the second quarter of 2020, the electricity prices rise significantly to a
 % This price reductions can be attributed to the Covid-19 pandemic. 
 % Due to the Covid-19 pandemic, there where many restrictions and lockdows for companies as well as private persons, wherefore there was a greater uncertainity in electricity demand. 
 % Sarting from 2020 Q2, the price is rising independent of the propotion of renewable electricity generation and reached its maximum with 109.88 €/MWh. 
-One reason are the rising gas prices. Since the most expensive generator needed to meet the demand sets the price, with rising gas prices the marginal cost of the gas power plants increases, which influences the electricity price strongly. 
+
+%Another reason are the rising gas prices. Since the most expensive generator needed to meet the demand sets the price, with rising gas prices the marginal cost of the gas power plants increases, which influences the electricity price strongly. 
 
 \begin{figure}[h]
     \centering
@@ -161,17 +164,24 @@ One reason are the rising gas prices. Since the most expensive generator needed 
 Looking at the conditions on an individual day, Figure \ref{fig:example_day} displays the hourly electricity spot price and the proportion of the renewable energy in total energy during one day. 
 It is clearly visible, that the price decreases when the renewables generate more electricity and vice versa. 
 One can note that the contribution of the renewables increases between hour 8 and hour 17 during the day. 
-This can be attributed to the solar system, as it generates electricity only at daytime and reaches its peek at hour 13, where the sun is at its highest point. 
+This can be attributed to the solar system, as it generates electricity only at daytime and reaches its peek at hour 13, where the sun is at its highest point causing the price to decrease. 
 
 \section{Methods}
 
 In order to determine the impact of electricity generation on the spot price, we will use a linear regression estimator. 
 Regression analysis is a statistical technique for investigating and modeling the relationships between variables \citep{montgomery2021introduction}. 
-In our case we have two variables: the price is the dependent variable, and the electricity generation the independet variable. 
-In other words, we want to estimte the spot price from the electricity generation using a linear model.
-Depending on the slope of the regression line, we can then conclude on the  correlation of the two variables. 
-Big slope means a high correlation, wheras a small slope means a low correlation (taking the absolute value of the slope). We will use this technique to analyze the renwable electricity generation, conventional electricity generation and explicitly on the pumped storage hydro generation. 
-Our goal is to make the correlation of those variables visible and show to the merit-order effect. 
+In our case we have two variables: the price as the dependent variable, and the electricity generation as independet.
+If we let y represent the price and x represent electricity generation, then the equation of a straight line relating these two variables is 
+
+\begin{equation}
+    y = \beta_0 + \beta_1\cdot x
+\end{equation}
+
+where $\beta_0$ is the intercept and $\beta_1$ is the slope.
+In other words, we want to estimte the spot prices from the electricity generation using a linear model.
+Depending on the slope of the regression line, we can conclude on the correlation of the two variables. 
+We will use this technique to analyze the renwable electricity generation, conventional electricity generation and explicitly the pumped storage hydro generation.
+We will make the correlation of those variables visible and show the merit-order effect. 
 
 % regression line conventional: y = 0.01067163 * x - 28.191637699817782
 %    "              renewable:  y = - 0.00563317 * x + 91.00702286781541
@@ -180,17 +190,28 @@ Our goal is to make the correlation of those variables visible and show to the m
 
 \section{Results}
 
-\begin{itemize}
-    \item Figure \ref{fig:ren_vs_con_regression} shows the opposite effects of renewable and conventional electricity generation on the prices.
-    \item Data and analysis can be found on Github \citep{github_repo}.
-    \item Figure \ref{fig:pumped_hydro_regression} shows that generation from pumped-storage hydro has a positive relationship with the market price.
-    This is because operators of storage units do arbitrage in time in order to make a profit, i.e.\ they charge during times of low prices and discharge during times of high prices.
-    Thus, prices are generally higher when they are producing.
-\end{itemize}
+Results of the regression analysis are displayed in Figure \ref{fig:ren_vs_con_regression}. 
+One can observe, that renewable and conventional electricity generation have an opposite effect on the prices. 
+Renewable has a negtive correlation whereas conventional has a positive correlation. 
+That means, increasing renewable electricity generation ensures that the price decreases.
+
+Figure \ref{fig:pumped_hydro_regression} shows that generation from pumped-storage hydro has a positive relationship with the market price.
+This is because operators of storage units do arbitrage in time in order to make a profit, i.e.\ they charge during times of low prices and discharge during times of high prices.
+Thus, prices are generally higher when they are producing.
+The data and analysis can be found on Github \citep{github_repo}.
+
+
+%\begin{itemize}
+%    \item Figure \ref{fig:ren_vs_con_regression} shows the opposite effects of renewable and conventional electricity generation on the prices.
+%    \item Data and analysis can be found on Github \citep{github_repo}.
+%    \item Figure \ref{fig:pumped_hydro_regression} shows that generation from pumped-storage hydro has a positive relationship with the market price.
+%    This is because operators of storage units do arbitrage in time in order to make a profit, i.e.\ they charge during times of low prices and discharge during times of high prices.
+%    Thus, prices are generally higher when they are producing.
+%\end{itemize}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\columnwidth]{doc/fig/ren_vs_con_regression.pdf}
+    \includegraphics[width=0.8\columnwidth]{doc/fig/ren_vs_con_regression.pdf}
     \caption{Caption}
     \label{fig:ren_vs_con_regression}
 \end{figure}
@@ -205,12 +226,15 @@ Our goal is to make the correlation of those variables visible and show to the m
 
 \begin{figure}
     \centering
-    \includegraphics[width=\columnwidth]{doc/fig/pumped_hydro_regression.pdf}
+    \includegraphics[width=0.8\columnwidth]{doc/fig/pumped_hydro_regression.pdf}
     \caption{Caption}
     \label{fig:pumped_hydro_regression}
 \end{figure}
 
 \section{Conclusion}
+
+We have used regression analysis to show the merit order effect of renewable electricity generation in Germany and Luxembourg between 2019 and 2021.
+It seems that the renewable electricity generation has an positive impact on the electricity spot price, which is why the German Renwable Energy Source Act (EEG) was adopted. 
 
 \bibliographystyle{plainnat}
 \bibliography{literature}
