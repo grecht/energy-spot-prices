@@ -106,22 +106,23 @@ Our results showed a positive effect of renewable electricity generation on the 
 
 \section{Introduction}
 In today's liberalized electricity markets, electricity is traded in megawatt hours (MWh), where one MWh denotes the generation of one MW over the duration of one hour \citep{markets_for_electrical_energy}.
-Thus, electricity markets have fixed time intervals serving as trading periods.
-Trading within shorter time intervals better reflects the physical conditions of the energy system.
-But this is not desired e.g.\ by participants who run base load generators, which constantly produce to meet the minimum demand, as they rather want a fixed price and quantity over a larger time interval in order to reduce their risks.
-Hence, there are different electricity markets which trade over different time intervals.
+Electricity markets have fixed time intervals serving as trading periods.
+% Trading within shorter time intervals better reflects the physical conditions of the energy system.
+% But this is not desired e.g.\ by participants who run base load generators, which constantly produce to meet the minimum demand, as they rather want a fixed price and quantity over a larger time interval in order to reduce their risks.
+% Hence, there are different electricity markets which trade over different time intervals.
 On forward markets, electricity is traded well before its consumption in larger amounts.
-Spot markets trade in the shortest time intervals, e.g.\ quarter-hourly, and are important for balancing demand and generation, which have to be equal at all times to ensure the stability of the system.
+Spot markets trade in the shortest time intervals, e.g.\ quarter-hourly, and are important for balancing demand and generation. %, which have to be equal at all times to ensure the stability of the system.
 Prices on spot markets are based on the bids and offers of the participants and are set by the market operator, who manages the market.
 Negative prices can occur when demand is low and there is an abundance of inflexible generation.
 To meet the demand, the market operator prioritizes cheaper generators.
 This leads to the \enquote{merit order}, an ordering of generators by their marginal costs, i.e.\ the cost of supplying one additional marginal unit of power.
 The most expensive generator needed to meet the demand sets the price.
-As renewable energy sources like wind and photovoltaic (PV) have near-zero marginal costs, they enter at the bottom of the merit-order and thus depress market prices when they generate a substantial amount of electricity.
+As renewable sources like wind and photovoltaic (PV) have near-zero marginal costs, they enter at the bottom of the merit-order and thus depress market prices when they generate a substantial amount of electricity.
+Conventional sources are more expensive and hence cause higher prices when they are needed.
 This is called the \enquote{merit-order effect}.
 % TODO: find citation for merit-order - somehow not in that book??
-
-Electricity generation can be divided into two categories: conventional and renewable. Conventional power generation refers to those power plants that require finite, fossil energy resources. These include gas, coal or oil but also nuclear power plants. On the otherside, renwable power generation uses energy sources that are continously renewed and are available unlimited. Examples are hydropower, photovoltaic, wind or biomass.
+Using regression analysis, this effect can be detected in time series data \citep{merit_order_effect_renewable_generation}.
+The aim of this report is detecting those opposite effects of conventional and renewable generation technologies on spot market prices using linear regression analysis.
 
 \section{Data}
 We use time series data from the years 2019 to 2021 of hourly electricity generation separated by technology type and quarter-hourly intraday spot market prices, both for the bidding zone comprised of Germany and Luxembourg \citep{smard}.
@@ -132,42 +133,28 @@ We transform the spot market prices to hourly intervals by taking the mean value
 The data is provided by the German Federal Network Agency who itself obtains it from the European Network of Transmission System Operators for Electricity (ENTSO-E) and the European Power Exchange (EPEX SPOT).
 Transmission system operators (TSOs) and EPEX SPOT are required by law to report and publish this data.
 The Network Agency then verifies and processes the data \citep{smard_usermanual}.
-
-Despite Pumped-Storage hydro uses hydropower to generate electricity, it is classified as a conventional source by SMARD \citep{smard_usermanual}. Therefore, we will analyse Pumped-Storage hydro seperately.  
-
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{doc/fig/quarterly_technology_mix_with_price.pdf}
-    \caption{Different electricity sources and the spot price}
+    \caption{Quarterly electricity generation separated by source and spot prices from 2019 to 2021.}
     \label{fig:quarterly_mix}
 \end{figure}
-
 Figure \ref{fig:quarterly_mix} shows the relative contribution of the different electricity sources as well as the spot prices over each quarter from 2019 to 2021.
 It is visible that the most important renewable sources are onshore and offshore wind as well as solar, while the largest conventional sources are brown coal and nuclear.
 Moreover, market prices fall until the second quarter of 2020 to a minimum of 23.73 €/MWh, most likely due to the COVID-19 pandemic which reduced the demand and thereby depressed prices \citep{covid_electricity_systems}.
-After the second quarter of 2020, the electricity prices rise significantly to a maximum of 109.88 €/MWh due to a multitude of factors, most notably an economic recovery causing demand shocks \citep{long_covid_energy_prices}.
-
-
-% This price reductions can be attributed to the Covid-19 pandemic. 
-% Due to the Covid-19 pandemic, there where many restrictions and lockdows for companies as well as private persons, wherefore there was a greater uncertainity in electricity demand. 
-% Sarting from 2020 Q2, the price is rising independent of the propotion of renewable electricity generation and reached its maximum with 109.88 €/MWh. 
-
-%Another reason are the rising gas prices. Since the most expensive generator needed to meet the demand sets the price, with rising gas prices the marginal cost of the gas power plants increases, which influences the electricity price strongly. 
-
+After the second quarter of 2020, the electricity prices rise significantly to a maximum of 109.88 €/MWh due to a multitude of factors, most notably an economic recovery causing demand shocks \citep{long_covid_energy_prices}. 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{doc/fig/example_day.pdf}
-    \caption{Spot price and percentage of renewables on 01/03/2021}
+    \caption{Spot price and renewable share of generation on March 1, 2021.}
     \label{fig:example_day}
 \end{figure}
-
-Looking at the conditions on an individual day, Figure \ref{fig:example_day} displays the hourly electricity spot price and renewabl during one day. 
-It is clearly visible, that the price decreases when the renewables generate more electricity and vice versa. 
-One can note that the contribution of the renewables increases between hour 8 and hour 17 during the day. 
-This can be attributed to the solar system, as it generates electricity only at daytime and reaches its peek at hour 13, where the sun is at its highest point causing the price to decrease. 
+Figure \ref{fig:example_day} shows the hourly electricity spot price and renewable share of generation over the duration of one exemplary day. 
+It is visible that the price decreases when renewables generate more electricity and vice versa. 
+% One can note that the contribution of the renewables increases between hour 8 and hour 17 during the day. 
+% This can be attributed to the solar system, as it generates electricity only at daytime and reaches its peek at hour 13, where the sun is at its highest point causing the price to decrease. 
 
 \section{Methods}
-
 In order to determine the impact of electricity generation on the spot price, we will use a linear regression estimator. 
 Regression analysis is a statistical technique for investigating and modeling the relationships between variables \citep{montgomery2021introduction}. 
 In our case we have two variables: the price as the dependent variable, and the electricity generation as independet.
@@ -178,8 +165,8 @@ If we let y represent the price and x represent electricity generation, then the
 where $\beta_0$ is the intercept and $\beta_1$ is the slope.
 In other words, we want to estimte the spot prices from the electricity generation using a linear model.
 Depending on the slope of the regression line, we can conclude on the correlation of the two variables. 
-We will use this technique to analyze the renwable electricity generation as well as the conventional electricity generation.
-We will make the correlation of those variables visible and show the merit-order effect. 
+%We will use this technique to analyze the renwable electricity generation as well as the conventional electricity generation.
+%We will make the correlation of those variables visible and show the merit-order effect. 
 
 % regression line conventional: y = 0.01067163 * x - 28.191637699817782
 %    "              renewable:  y = - 0.00563317 * x + 91.00702286781541
@@ -187,17 +174,20 @@ We will make the correlation of those variables visible and show the merit-order
 % renewable decreases it? (|Slope_con| is nearly twice as big as |Slope_ren|)
 
 \section{Results}
+Results of the regression analysis are displayed in Figure \ref{fig:ren_vs_con_regression}, the data and analysis can be found on Github \citep{github_repo}..
+We divide the sources into renewable and conventional:
+\enquote*{Biomass}, \enquote*{hydropower}, \enquote*{onshore wind}, \enquote*{offshore wind}, \enquote*{solar}, and \enquote*{other renewables} are classified as renewable.
+\enquote*{Nuclear}, \enquote*{brown coal}, \enquote*{black coal}, \enquote*{natural gas} and \enquote*{other conventionals} are classified as conventional.
+% TODO: define renewable!
+We neglect pumped-storage hydro in the analysis because operators of storage units do arbitrage in time in order to make a profit, i.e.\ they charge during times of low prices and discharge during times of high prices.
+Thus, generation from pumped-storage hydro has a positive relationship with the market price.
+% Although times of low prices mostly coincide with high renewable generation...
 
-Results of the regression analysis are displayed in Figure \ref{fig:ren_vs_con_regression}. 
 One can observe, that renewable and conventional electricity generation have an opposite effect on the prices. 
 Renewable has a negtive correlation whereas conventional has a positive correlation. 
 That means, increasing renewable electricity generation ensures that the price decreases.
 
-% Generation from pumped-storage hydro has a positive relationship with the market price.
-This is because operators of storage units do arbitrage in time in order to make a profit, i.e.\ they charge during times of low prices and discharge during times of high prices.
-Thus, prices are generally higher when they are producing.
-The data and analysis can be found on Github \citep{github_repo}.
-
+high electricity prices in 2021 due to external effects could potentially lessen the visibility of the merit-order effect
 
 %\begin{itemize}
 %    \item Figure \ref{fig:ren_vs_con_regression} shows the opposite effects of renewable and conventional electricity generation on the prices.
@@ -216,25 +206,10 @@ The data and analysis can be found on Github \citep{github_repo}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.85\columnwidth]{doc/fig/ren_vs_con_regression_separate.pdf}
-    \caption{Caption}
+    \includegraphics[width=\columnwidth]{doc/fig/ren_vs_con_regression_separate.pdf}
+    \caption{}
     \label{fig:ren_vs_con_regression}
 \end{figure}
-
-% Comment out till we decide to use the plot
-%\begin{figure}
-%    \centering
-%    \includegraphics[width=\textwidth]{doc/fig/solar_wind_regression.pdf}
-%    \caption{Caption}
-%    \label{fig:solar_wind_regression}
-%\end{figure}
-
-%\begin{figure}
-    %\centering
-    %\includegraphics[width=0.8\columnwidth]{doc/fig/pumped_hydro_regression.pdf}
-    %\caption{Caption}
-    %\label{fig:pumped_hydro_regression}
-%\end{figure}
 
 \section{Conclusion}
 
