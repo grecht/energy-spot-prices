@@ -86,8 +86,8 @@ Ismail Kisa\\
 \maketitle
 
 \begin{abstract}
-Due to the merit-order, the most expensive generator needed to meet the demand sets the price in electricity markets.
-Thus, renewable sources with their low marginal costs depress prices at times of high generation whereas more expensive conventional sources cause higher prices when they are needed.
+The most expensive generator needed to meet the demand sets the price in electricity markets.
+Thus, renewable sources with their low marginal costs depress prices at times of high generation whereas the more expensive conventional sources cause higher prices when they are needed.
 Using linear regression analysis on data for Germany and Luxembourg from the years of 2019 to 2021, we are able to detect these opposite effects.
 \end{abstract}
 
@@ -202,14 +202,14 @@ High electricity prices in 2021 due to external effects could potentially lessen
 \begin{figure}[h]
     \centering
     \includegraphics[width=\columnwidth]{doc/fig/ren_vs_con_regression_separate.pdf}
-    \caption{Separate regression analyses relating renewable and conventional generation to spot market prices. }
+    \caption{Separate regression analyses relating renewable and conventional generation to spot market prices. Due to the large number of data points the data is aggregated into hexagons whose color intensity reflects the number of elements it contains.}
     \label{fig:ren_vs_con_regression}
 \end{figure}
 
 \section{Conclusion}
-Due to the merit-order, the most expensive generator needed to met the demand sets the price in electricity markets.
-Thus, renewable sources with their low marginal costs depress prices at times of high generation whereas more expensive conventional sources cause higher prices when they are needed.
-Using linear regression analysis on data for Germany and Luxembourg from the years of 2019 to 2021, we are able to detect these opposite effects.
+Due to the merit-order, an abundance of renewable electricity generation depresses market prices prices while conventional sources cause higher prices when they are needed, as the most expensive generator sets the price.
+We investigate these effects using data from the years of 2019 to 2021 for Germany and Luxembourg compiled by the German Federal Network Agency, who receives it from transmission system operators and the European power exchange.
+By splitting the electricity generation sources into renewable and conventional and then separately applying linear regression analysis, we are able to relate the generation to the market price and thereby show these opposite effects.
 
 \bibliographystyle{plainnat}
 \bibliography{literature}
